@@ -8,7 +8,9 @@ PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 BUCKET = [OPTIONAL] your-bucket-for-syncing-data (do not include 's3://')
 PROFILE = default
 PROJECT_NAME = choc-ranking
-PYTHON_INTERPRETER = python3
+PYTHON = python3
+VENV_NAME = .venv-choc
+PYTHON_INTERPRETER = $(VENV_NAME)/bin/python3
 
 ifeq (,$(shell which conda))
 HAS_CONDA=False
@@ -20,10 +22,17 @@ endif
 # COMMANDS                                                                      #
 #################################################################################
 
-## Install Python Dependencies
-requirements: test_environment
-	$(PYTHON_INTERPRETER) -m pip install -U pip setuptools wheel
+venv: requirements.txt
+	$(PYTHON) -m venv $(VENV_NAME) python==3.8
+	$(PYTHON_INTERPRETER) -m pip install --upgrade pip
 	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
+
+update_venv: requirements.txt
+	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
+
+reqfile:
+	echo "-e .\n" > requirements.txt
+	$(PYTHON_INTERPRETER) -m pip list --format=freeze | grep -v pip== >> requirements.txt
 
 ## Make Dataset
 data: requirements
