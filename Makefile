@@ -32,7 +32,7 @@ update_venv: requirements.txt
 
 reqfile:
 	echo "-e .\n" > requirements.txt
-	$(PYTHON_INTERPRETER) -m pip list --format=freeze | grep -v pip== >> requirements.txt
+	$(PYTHON_INTERPRETER) -m pip list --format=freeze | grep -v pip== | grep -v src== >> requirements.txt
 
 ## Make Dataset
 data: requirements
