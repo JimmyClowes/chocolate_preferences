@@ -8,7 +8,7 @@ PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 BUCKET = [OPTIONAL] your-bucket-for-syncing-data (do not include 's3://')
 PROFILE = default
 PROJECT_NAME = choc-ranking
-PYTHON = python3.8
+PYTHON = python3.10
 VENV_NAME = .venv-choc
 PYTHON_INTERPRETER = $(VENV_NAME)/bin/python3
 
@@ -23,6 +23,7 @@ endif
 #################################################################################
 
 venv: requirements.txt
+	rm -rf $(VENV_NAME)
 	$(PYTHON) -m venv $(VENV_NAME)
 	$(PYTHON_INTERPRETER) -m pip install --upgrade pip
 	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
