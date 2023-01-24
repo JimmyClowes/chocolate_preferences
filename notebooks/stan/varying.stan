@@ -13,6 +13,7 @@ transformed data {
 
 parameters {
     real choc_mus_fitted[n_chocs]; // mean latent ratings for chocolates
+    real<lower=0> choc_sigmas_fitted[n_chocs]; // sd of latent ratings for chocolates
     array[n_people] ordered[n_chocs] ratings; // latent ratings for each person
 }
 
@@ -24,8 +25,10 @@ transformed parameters {
 
 model {
     choc_mus_fitted ~ normal(0, 1); // prior on mean chocolate latent ratings
+
+    choc_sigmas_fitted ~ gamma(5,10); // prior on sd of chocolate latent ratings
     
     for (i in 1:n_people){
-        ratings[i][rankings_argsort[i]] ~ normal(choc_mus_adj, 1);
+        ratings[i][rankings_argsort[i]] ~ normal(choc_mus_adj, choc_sigmas_fitted);
     }
 }
