@@ -12,15 +12,15 @@ transformed data {
 }
 
 parameters {
-    real choc_mus_fitted[n_chocs]; // mean latent ratings for chocolates
-    real<lower=0> choc_sigmas_fitted[n_chocs]; // sd of latent ratings for chocolates
+    vector[n_chocs] choc_mus_fitted; // mean latent ratings for chocolates
+    vector<lower=0>[n_chocs] choc_sigmas_fitted; // sd of latent ratings for chocolates
     array[n_people] ordered[n_chocs] ratings; // latent ratings for each person
 }
 
 transformed parameters {
     real choc_mus_std = sd(choc_mus_fitted);
     vector[n_chocs] choc_mus_adj;
-    choc_mus_adj = to_vector(choc_mus_fitted) ./ choc_mus_std;
+    choc_mus_adj = choc_mus_fitted ./ choc_mus_std;
 }
 
 model {
