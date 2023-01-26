@@ -7,6 +7,10 @@
 data
 !src/data
 
+# stan files
+src/models/stan/*
+!src/models/stan/*.stan
+
 ### JupyterNotebooks ###
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/
