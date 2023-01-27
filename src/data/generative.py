@@ -27,7 +27,8 @@ class SimGenerative():
                                              self.choc_sigmas[np.newaxis,:],
                                              size=(self.n_people,  self.n_chocs))
 
-        self.choc_rankings = np.argsort(self.choc_ratings, axis=1)
+        # negative of ratings is taken so that lower values are given higher rank indices
+        self.choc_rankings = np.argsort(-self.choc_ratings, axis=1)
 
         self._make_ratings_rankings_df()
 
@@ -85,7 +86,7 @@ class SimViz():
         return fig
 
     def plot_ratings(self,
-                     facet_col,
+                     facet_col=None,
                      facet_col_wrap=5,
                      facets_limit=None,
                      **kwargs):
