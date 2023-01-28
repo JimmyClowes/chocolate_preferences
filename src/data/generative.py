@@ -9,7 +9,7 @@ class SimGenerative():
                  n_chocs=17,
                  seed=123,
                  hyperparams={'choc_mus': {'loc': 0, 'scale': 1},
-                              'choc_sigmas': {'shape': 5, 'scale': 0.1}}):
+                              'choc_sigmas': {'shape': 5, 'scale': 0.5}}):
 
         self.n_people = n_people
         self.n_chocs = n_chocs
