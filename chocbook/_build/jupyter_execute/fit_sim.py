@@ -6,7 +6,7 @@
 # Having settled on a generative model I think represents the data generating process reasonably well, the next step is to simulate some data from the generative model, and then attempt to write an estimating model that can recover the known parameter values from the simulated data. If the estimating model can not recover the known parameters from simulated data, there is no reason to believe it would do a good job identifying true parameter values when fitting to real data. And, if you're willing to believe the generative model assumed is a reasonable representation of the true data generating process that produces the real data, seeing the estimating model recover known parameters from simulated data should give you confidence in the parameters the model estiamtes on the real data.
 # 
 # 
-# ## Drawing simulating data from the generative model
+# ### Drawing simulated data from the generative model
 # First, some data is simulated from the generative model, in the same way as it was in the previous step.
 
 # In[1]:
@@ -19,7 +19,7 @@ sim = SimGenerative(n_people=40,
 sim.draw()
 
 
-# # Fitting the estimating model to the simulated data
+# ### Fitting the estimating model to the simulated data
 # 
 # I used the Stan language to write a model to estimate the parameter values of interest. A Stan model must have at least `data`, `parameters` and `model` blocks, plus optional other code blocks.
 # 
@@ -34,6 +34,11 @@ sim.draw()
 
 import src.models.stan_models as sm
 model = sm.StanModel(filename='choc_model.stan')
+
+
+# In[3]:
+
+
 print(model.code())
 
 
@@ -41,7 +46,7 @@ print(model.code())
 # 
 # Since I have created a `StanModel` class that inherits the underlying modelling capability from `cmdstanpy` (the interface for using Stan in python), I call the `fit` method, which behing the scenes uses [Markov Chain Monte Carlo (MCMC) sampling](https://mc-stan.org/docs/reference-manual/hmc.html) to sample estimates of the parameter values.
 
-# In[3]:
+# In[4]:
 
 
 model.fit(sim.choc_rankings,
@@ -56,7 +61,7 @@ model.fit(sim.choc_rankings,
 # 
 # The model can be seen to have performed reasonably well, with the true values generally around the centre of the sampled values for each chocolate, and with the model samples focussing in higher regions for cases where the true value is high and lower regions where the true value is low. On this basis, we have good reason to trust the model's estimates of the mean value of appeal for the chocolates across people, i.e. the model is reasonably well able to glean information about which chocolates have systematically more and less appeal.
 
-# In[4]:
+# In[5]:
 
 
 model.viz_samples_violin(stan_var='choc_mus_fitted',
@@ -68,7 +73,7 @@ model.viz_samples_violin(stan_var='choc_mus_fitted',
 # 
 # Again, the true values are generally around the centre of the sampled values, and the model focusses on higher regions where the values are truly higher and vice versa. So we also have good reason to trust the ability of the model to glean information about how much variation there is in the appeal of each chocolate.
 
-# In[5]:
+# In[6]:
 
 
 model.viz_samples_violin(stan_var='choc_sigmas_fitted',

@@ -8,7 +8,6 @@
 
 
 from src.data.make_dataset import read_processed_data
-import plotly.express as px
 
 
 # ## Read in processed data
@@ -31,11 +30,6 @@ ranking_df
 
 
 import src.visualization.viz_rankings as vizrank
-
-
-# In[4]:
-
-
 vizrank.plot_rank_means(ranking_df)
 
 
@@ -44,7 +38,7 @@ vizrank.plot_rank_means(ranking_df)
 # 
 # From this, the generative model should be capable of producing outcomes where appeal for some chocolates is bunched at one end of the scale for almost all participants. The generative model should also be capable of producing outcomes where some chocolates are ranked in the top 5 by some people but in the bottom 5 by other people. This suggests that for some chocolates the individual effect should be larger than the differences in population level effects, since the individual variaition in the appeal is enough to make chocolates higher or lower in the rankings in a way that is not due to a commonly held preference across participants.
 
-# In[5]:
+# In[4]:
 
 
 vizrank.plot_top_bottom_n(ranking_df, 5)
