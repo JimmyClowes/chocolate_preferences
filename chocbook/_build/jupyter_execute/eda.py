@@ -25,55 +25,27 @@ ranking_df
 # ## Visual 1: Mean rankings of chocolates across participants
 # This visualises the mean rankings of the 17 chocolates across the 10 participants.
 # 
-# This suggests that when analysing the population-level preferences, we should expect to see Maltesers and Twix toward the top end of preferences and Eclair toward the bottom end of preferences. It also suggests a small number of chocolates are strongly preferreed or disliked by all the participants, while many are quite closely bunched in the middle of the rankigns. This means that when generating priors for the model fitting process, a few outliers with most chocolates having mean attractivenss toward the middle of the distribution is a reasonable representation, whereas an extremely divisive spread of mean rankings would not be a good representation.
+# This suggests that when analysing the population-level preferences, we should expect to see Maltesers and Twix toward the top end of preferences and Eclair toward the bottom end of preferences. It also suggests the generative model should be capable of producing ranking outcomes where a small number of chocolates are strongly preferreed or disliked by all the participants, while many are quite closely bunched in the middle of the rankings.
 
 # In[3]:
 
 
-fig = px.bar(ranking_df.groupby('choc')[['rank']].mean().sort_values('rank'))
+import src.visualization.viz_rankings as vizrank
 
-fig.update_layout(
-{
-'plot_bgcolor': 'rgba(0, 0, 0, 0)',
-'paper_bgcolor': 'rgba(0, 0, 0, 0)'
-},
-showlegend=False)
 
-fig.update_xaxes(showline=True, linewidth=1, linecolor='black')
-fig.update_yaxes(showline=True, linewidth=1, linecolor='black',title='mean rank')
+# In[4]:
 
-fig.show()
+
+vizrank.plot_rank_means(ranking_df)
 
 
 # ## Visual 2: Frequency of occurrece of ranking in top 5 / bottom 5 per chocolate
 # This visualises the number of participants who ranked each chocolate in their top 5 preferences and bottom 5 preferences.
 # 
-# This suggests that when analysing the population-level preferences, we should expect Malteser and Eclair to have unimodal distributions, with most participants sharing the same view. In contrast, we should expect bimodal distributions for Snickers and Bounty, where participants had strongly opposing views.
-
-# In[4]:
-
-
-ranking_df['top_5'] = ranking_df['rank'] <= 4
-ranking_df['bottom_5'] = ranking_df['rank'] >= 12
-
+# From this, the generative model should be capable of producing outcomes where appeal for some chocolates is bunched at one end of the scale for almost all participants. The generative model should also be capable of producing outcomes where some chocolates are ranked in the top 5 by some people but in the bottom 5 by other people. This suggests that for some chocolates the individual effect should be larger than the differences in population level effects, since the individual variaition in the appeal is enough to make chocolates higher or lower in the rankings in a way that is not due to a commonly held preference across participants.
 
 # In[5]:
 
 
-fig = px.bar(ranking_df[['choc', 'top_5', 'bottom_5']].melt(id_vars='choc').groupby(['choc','variable'])['value'].sum().reset_index(),
-       y='choc',
-       x='value',
-       facet_col='variable')
-
-fig.update_layout(
-{
-'plot_bgcolor': 'rgba(0, 0, 0, 0)',
-'paper_bgcolor': 'rgba(0, 0, 0, 0)'
-},
-showlegend=False)
-
-fig.update_xaxes(showline=True, linewidth=1, linecolor='black', title='frequency')
-fig.update_yaxes(showline=True, linewidth=1, linecolor='black',title='choc')
-
-fig.show()
+vizrank.plot_top_bottom_n(ranking_df, 5)
 
