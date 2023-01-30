@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Modelling chocolate preferences from ranking data &#8212; Modelling chocolate preferences from ranking data</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -50,9 +51,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Markdown Files" href="markdown.html" />
+    <link rel="next" title="Exploratory data analysis" href="eda.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -114,18 +117,28 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="markdown.html">
-   Markdown Files
-  </a>
- </li>
- <li class="toctree-l1">
   <a class="reference internal" href="eda.html">
    Exploratory data analysis
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="markdown-notebooks.html">
-   Notebooks with MyST Markdown
+  <a class="reference internal" href="generative.html">
+   Building a generative model
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="fit_sim.html">
+   Fitting a model to simulated data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="fit_real.html">
+   Fitting a model to real data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="form.html">
+   Submit your own rankings
   </a>
  </li>
 </ul>
@@ -283,12 +296,51 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-this-about">
+   What is this about?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#why-does-this-exist">
+   Why does this exist?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-s-involved-in-the-project">
+   What’s involved in the project?
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
@@ -300,6 +352,34 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-this-about">
+   What is this about?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#why-does-this-exist">
+   Why does this exist?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-s-involved-in-the-project">
+   What’s involved in the project?
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -307,18 +387,42 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="modelling-chocolate-preferences-from-ranking-data">
+  <section class="tex2jax_ignore mathjax_ignore" id="modelling-chocolate-preferences-from-ranking-data">
 <h1>Modelling chocolate preferences from ranking data<a class="headerlink" href="#modelling-chocolate-preferences-from-ranking-data" title="Permalink to this headline">#</a></h1>
-<p>This book works through an analysis of ranking data relating to relative preferences of a selection of chocolates carried out by a number of people.</p>
-<p>The book follows the process of <a class="reference external" href="https://khakieconomics.github.io/2016/08/29/What-is-a-modern-statistical-workflow.html">Modern Statistical Workflow</a>, which is applicable to the development of Bayesian models and aims to ensure models are fit for purpose by testing them on simulated data so that they can be trusted on real data.</p>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
+<p>This project works through an analysis of ranking data relating to relative preferences of a selection of chocolates carried out by a number of people.</p>
+<p>It aims to make inferences from the ranking data about:</p>
+<ul class="simple">
+<li><p>which chocolates appear to be systematically preferred at the population level</p></li>
+<li><p>whether there are some chocolates that have higher variation in appeal than others</p></li>
+</ul>
+</section>
+<section id="what-is-this-about">
+<h2>What is this about?<a class="headerlink" href="#what-is-this-about" title="Permalink to this headline">#</a></h2>
+<p>The data used in this project came about from an evening with a group of friends with a box of Celebrations and a box of Heroes on the table, where someone suggested everyone rank each chocolate from best to worst. Because that’s the kind of really cool thing we do.</p>
+</section>
+<section id="why-does-this-exist">
+<h2>Why does this exist?<a class="headerlink" href="#why-does-this-exist" title="Permalink to this headline">#</a></h2>
+<p>Fair question. <a class="reference external" href="https://en.wikipedia.org/wiki/We_choose_to_go_to_the_Moon">“Why does Rice play Texas?”</a> My main areas of professional interest at the moment are in probablistic methods using software like <span class="xref myst">PyMC</span> and <a class="reference external" href="https://mc-stan.org/">Stan</a>, so when seeing the ranking data, the question occurred to me about whether it could be used to understand the appeal of the chcolates at the population level, both in terms of order and in terms of variation. I hadn’t previously employed any methods for ordered data using a Bayesian approach, so I knew this would be a challenge and I would learn something.</p>
+</section>
+<section id="what-s-involved-in-the-project">
+<h2>What’s involved in the project?<a class="headerlink" href="#what-s-involved-in-the-project" title="Permalink to this headline">#</a></h2>
+<p>The book follows the process of <a class="reference external" href="https://khakieconomics.github.io/2016/08/29/What-is-a-modern-statistical-workflow.html">Modern Statistical Workflow</a>, which is applicable to the development of Bayesian models and aims to ensure models are fit for purpose by first testing them on simulated data so that they can be trusted when applied to real data.</p>
+<p>The steps of the modern statistical workflow are worked through on the pages listed in the contents below.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="markdown.html">Markdown Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="eda.html">Exploratory data analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generative.html">Building a generative model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generative.html#drawing-samples-from-the-generative-model">Drawing samples from the generative model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fit_sim.html">Fitting a model to simulated data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fit_sim.html#fitting-the-estimating-model-to-the-simulated-data">Fitting the estimating model to the simulated data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fit_real.html">Fitting a model to real data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form.html">Submit your own rankings</a></li>
 </ul>
 </div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -347,10 +451,10 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='right-next' id="next-link" href="markdown.html" title="next page">
+    <a class='right-next' id="next-link" href="eda.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Markdown Files</p>
+        <p class="prev-next-title">Exploratory data analysis</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
