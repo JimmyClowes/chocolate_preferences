@@ -72,13 +72,13 @@ model.viz_samples_violin('choc_sigmas_fitted',
 
 # ## Implications for probabilities of where the chocolates rank for the population
 # 
-# Finally, with the model having sampled valued of the population level mean appeal for each chocolate, we can analyse the order of those values in each of the MCMC samples the model carried out to get a sample of the population level ranking of the chocolates.
+# Finally, with the model having sampled values of the population level mean appeal for each chocolate, we can analyse the order of those values in each of the MCMC samples the model carried out to get a sample of the population level ranking of the chocolates.
 # 
 # Based on this, there are runaway winners and losers for what could be considered the best and worst of the chocolates among this population. There's more than a 50% probability that Malteser is the top ranked of the chocolates for the population, and it's more than 80% likely it is at least in the top 3. Eclair has a 40% probability of being the worst of the chocolates among this population.
 # 
 # The limited amount of variation in appeal for Wispa seen above, plus its mean appeal being in the middle of the scale, leads to it being extremely unlikley to be the best ranked or the worst ranked - it is firmly somewhere in the middle of the rankings. No one in this population is going to thank you for throwing them a Wispa, but they aren't going to throw it back at you either.
 # 
-# Twix and Dairly milk both put in a strong showing, with a lot of probability density at the top end of the rankings, and their probability of being the top ranked chocolate among the population only limited by Maltesers having dominated the probability for top rank.
+# Twix and Dairy milk both put in a strong showing, with a lot of probability density at the top end of the rankings, and their probability of being the top ranked chocolate among the population only limited by Maltesers having dominated the probability for top rank.
 
 # In[5]:
 
