@@ -20,8 +20,10 @@ class SimGenerative():
 
         np.random.seed(self.seed)
 
-        self.choc_mus = np.random.normal(**self.hyperparams['choc_mus'], size=self.n_chocs)
-        self.choc_sigmas = np.random.gamma(**self.hyperparams['choc_sigmas'], size=self.n_chocs)
+        self.choc_mus = np.random.normal(**self.hyperparams['choc_mus'],
+                                         size=self.n_chocs)
+        self.choc_sigmas = np.random.gamma(**self.hyperparams['choc_sigmas'],
+                                           size=self.n_chocs)
 
         self.choc_ratings = np.random.normal(self.choc_mus[np.newaxis,:],
                                              self.choc_sigmas[np.newaxis,:],
@@ -61,9 +63,7 @@ class SimViz():
 
     def __init__(self,
                  sim,
-                 plot_config={'template': 'simple_white',
-                              'height': 600,
-                              'width': 1000}):
+                 plot_config={'template': 'simple_white'}):
                       
         if isinstance(sim, SimGenerative):
             self.sim = sim
@@ -125,5 +125,7 @@ class SimViz():
                             **kwargs)
         
         fig.update_layout(showlegend=False)
+
+        fig.update_traces(marker={'size': 4})
 
         return fig

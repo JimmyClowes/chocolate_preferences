@@ -16,8 +16,7 @@ class StanModel(CmdStanModel):
 
     def __init__(self,
                  filename,
-                 plot_config={'height': 600,
-                              'width': 1000},
+                 plot_config={},
                  **kwargs):
 
         self.filename = os.path.join(stan_model_dir,
@@ -127,11 +126,11 @@ class StanModel(CmdStanModel):
         'paper_bgcolor': 'rgba(0, 0, 0, 0)'
         },
         showlegend=False,
-        height=800,
-        width=1000,
         font=dict(
-                size=10
+                size=7
             ))
+
+        fig.update_annotations(font_size=12)
 
         fig.update_xaxes(showline=True,
                             showticklabels=True,

@@ -7,6 +7,9 @@
 data
 !src/data
 
+chocbook/images
+chocbook/_build/html/_images
+
 # stan files
 src/models/stan/*
 !src/models/stan/*.stan

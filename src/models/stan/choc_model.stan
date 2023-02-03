@@ -34,16 +34,22 @@ transformed parameters {
 model {
     choc_mus_fitted ~ normal(0, 1); // prior on mean chocolate latent ratings
 
-    choc_sigmas_alpha ~ gamma(5, 1); // hyperprior on alpha of distribution of sd of chocolate latent ratings
-    choc_sigmas_mean ~ gamma(10, 4); // hyperprior on mean of distribution of sd of chocolate latent ratings
+    // hyperprior on alpha of distribution of sd of chocolate latent ratings
+    choc_sigmas_alpha ~ gamma(5, 1);
+    // hyperprior on mean of distribution of sd of chocolate latent ratings
+    choc_sigmas_mean ~ gamma(10, 4); 
 
-    choc_sigmas_fitted ~ gamma(choc_sigmas_alpha,choc_sigmas_beta); // prior on sd of chocolate latent ratings
+    // prior on sd of chocolate latent ratings
+    choc_sigmas_fitted ~ gamma(choc_sigmas_alpha,choc_sigmas_beta); 
     
     for (i in 1:n_people){
-        // model the ratings given by each person as normal based on mean and sd per chocolate
+        // model the ratings given by each person as
+        // normal based on mean and sd per chocolate
 
-        // ratings parameters per person are re-ordered by argsort based on the ratings given by that person
-        // so that the ratings for that chocolate are matched to the mean and sd for that chocolate
+        // ratings parameters per person are re-ordered
+        // by argsort based on the ratings given by that person
+        // so that the ratings for that chocolate are matched
+        // to the mean and sd for that chocolate
 
         ratings[i][rankings_argsort[i]] ~ normal(choc_mus_adj, choc_sigmas_fitted);
     }

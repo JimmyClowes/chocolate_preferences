@@ -24,14 +24,18 @@ def plot_top_bottom_n(ranking_df,
     ranking_df[top_n] = ranking_df['rank'] <= n-1
     ranking_df[bottom_n] = ranking_df['rank'] >= max(ranking_df['rank']) - n
 
-    fig = px.bar(ranking_df[['choc', top_n, bottom_n]].melt(id_vars='choc').groupby(['choc','variable'])['value'].sum().reset_index(),
+    fig = px.bar(ranking_df[['choc', top_n, bottom_n]].
+                    melt(id_vars='choc').
+                    groupby(['choc','variable'])['value'].
+                    sum().
+                    reset_index().
+                    rename(columns={'value': 'frequency'}),
        y='choc',
-       x='value',
+       x='frequency',
        facet_col='variable',
        template='simple_white')
 
     fig.update_layout(showlegend=False,
-                        xaxis_title='frequency',
                         yaxis_title='choc')
 
     return fig
