@@ -3,7 +3,7 @@
 
 # # Fitting a model to real data
 # 
-# With a model that has been found to be able to reliably recovered known parameters from simulated data, we're now in a position to apply that model to real data in order to learn about the parameters we're interested in. As a reminder, the aims of this project were to determine whether it is possible to learn anything about the appeal ratings and the rankings at the population level from the rank data collected at the individual level (the data below, as seen earlier in the exploratory data analysis).
+# With a model that has been found to be able to reliably recover known parameters from simulated data, we're now in a position to apply that model to real data in order to learn about the parameters we're interested in. As a reminder, the aims of this project were to determine whether it is possible to learn anything about the appeal ratings and the rankings at the population level from the rank data collected at the individual level (the data below, as seen earlier in the exploratory data analysis).
 # 
 # So, here I fit the model to the real data, and then visualise the model fit to explore:
 # - What we can infer from the model about the population mean appeal for each chocolate
@@ -55,12 +55,12 @@ model.viz_samples_violin('choc_mus_fitted',
 
 # ## Population variation in appeal for chocolates
 # 
-# Here, the standard deviation parameter of the distribition of apppeal for each chocolate as fitted by the model is visualised. This parameter tells us how much appeal is rated differently for a chocoalte across the people rating it.
+# Here, the standard deviation parameter of the distribition of appeal for each chocolate as fitted by the model is visualised. This parameter tells us how much appeal is rated differently for a chocolate across the people rating it.
 # 
-# There are a couple of things of interest here. First, the values sampled by the model are generally larger than 2, and almost all larger than 1. Given that the model specified the standard deviation in the chocolate _mean_ appeals to be 1, the fact that the chocolate _standard deviations_ in appeal are almost all greater than 2 suggests that the amount of variation in ratings at the individual level is greater than the amount of variation in the average ratings per chocolate. What that mean is that there is a lot of randomness in the preferences of individual people - there is generally not a lot of accordance between people that some chocolates are better than others.
+# There are a couple of things of interest here. First, the values sampled by the model are generally larger than 2, and almost all larger than 1. Given that the model specified the _mean_ of the standard deviation in the chocolate population level appeals to be 1, the fact that the chocolate _standard deviations_ in appeal across people are almost all greater than 2 suggests that the amount of variation in ratings at the individual level is greater than the amount of variation in the average ratings per chocolate. What that means is that there is a lot of variation in the preferences of individual people - there is generally not a lot of accordance between people that some chocolates are better than others.
 # 
 # 
-# Second, comparing the spread of values for the standard deviations sampled by the model, it is apparent that some chocolates have lower amounts of variation in appeal than most, and some have more than most. In particular, Wispa appears to have the least amount of variation in its appeal rating across the people ranking the chocolates, suggesting most people generally rate Wispa at about the same place on their appeal scale as each other. The standard deviations for Bounty and Eclair are large than for other chocolates, meaning ratings vary more for those chocolates. This makes sense to me - I really dislike coconut flavour, but other people like it so I would expect it to have a relatively large amount of variation in appeal.
+# Second, comparing the spread of values for the standard deviations sampled by the model, it is apparent that some chocolates have lower amounts of variation in appeal than most, and some have more than most. In particular, Wispa appears to have the least amount of variation in its appeal rating across the people ranking the chocolates, suggesting most people generally rate Wispa at about the same place on their appeal scale as each other. The standard deviations for Bounty and Eclair are larger than for other chocolates, meaning ratings vary more for those chocolates. This makes sense to me - I really dislike coconut flavour, but other people like it so I would expect it to have a relatively large amount of variation in appeal.
 
 # In[4]:
 
@@ -72,13 +72,13 @@ model.viz_samples_violin('choc_sigmas_fitted',
 
 # ## Implications for probabilities of where the chocolates rank for the population
 # 
-# Finally, with the model having sampled values of the population level mean appeal for each chocolate, we can analyse the order of those values in each of the MCMC samples the model carried out to get a sample of the population level ranking of the chocolates.
+# Finally, with the model having sampled values of the population level mean appeal for each chocolate, we can analyse the order of those values in each of the MCMC samples the model carried out to get samples of the population level ranking of the chocolates.
 # 
-# Based on this, there are runaway winners and losers for what could be considered the best and worst of the chocolates among this population. There's more than a 50% probability that Malteser is the top ranked of the chocolates for the population, and it's more than 80% likely it is at least in the top 3. Eclair has a 40% probability of being the worst of the chocolates among this population.
+# Based on this, there are runaway winners and losers for what could be considered the best and worst of the chocolates among this population. There's more than a 50% probability that Malteser is the top ranked of the chocolates for the population, and it's more than 80% likely it is at least in the top 3. Eclair has a 40% probability of being the viewed as the worst of the chocolates among this population.
 # 
 # The limited amount of variation in appeal for Wispa seen above, plus its mean appeal being in the middle of the scale, leads to it being extremely unlikley to be the best ranked or the worst ranked - it is firmly somewhere in the middle of the rankings. No one in this population is going to thank you for throwing them a Wispa, but they aren't going to throw it back at you either.
 # 
-# Twix and Dairy milk both put in a strong showing, with a lot of probability density at the top end of the rankings, and their probability of being the top ranked chocolate among the population only limited by Maltesers having dominated the probability for top rank.
+# Twix and Dairy milk both put in a strong showing, with a lot of probability density at the top end of the rankings, and their probability of being the top ranked chocolate among the population is only limited by Maltesers having dominated the probability for top rank.
 
 # In[5]:
 
