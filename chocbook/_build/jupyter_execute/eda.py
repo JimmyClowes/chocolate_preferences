@@ -31,11 +31,5 @@ vizrank.plot_rank_means(ranking_df)
 # In[3]:
 
 
-ranking_df
-
-
-# In[4]:
-
-
 vizrank.plot_top_bottom_n(ranking_df, 5)
 
