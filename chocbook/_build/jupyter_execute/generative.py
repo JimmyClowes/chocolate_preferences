@@ -20,7 +20,7 @@
 #   - Some chcocolates are generally agreed to be nicer than others, so they would have a higher mean appeal on the latent scale
 #   - Some chocolates divide opinion more, so they would have a higher variance in appeal on the latent scale
 # 
-# - Each person has their own individual appeal rating for each choclate drawn from the appeal distributions for each chocolate
+# - Each person has their own individual appeal rating for each chocolate drawn from the appeal distributions for each chocolate
 # 
 # - The _ranking_ each person produces is based on the ordering of their appeal _ratings_ for each chocolate from highest to lowest
 # 
